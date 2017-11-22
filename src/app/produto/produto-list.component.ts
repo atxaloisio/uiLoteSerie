@@ -1,3 +1,5 @@
+import { TokenManagerService } from './../token-manager.service';
+import { ProdutoService } from './produto.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DataSource} from '@angular/cdk/collections';
 import { MatSort } from '@angular/material';
@@ -11,13 +13,14 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/debounceTime';
+import { Produto } from './produto';
 
 @Component({
   selector: 'app-produto',
-  templateUrl: './produto.component.html',
-  styleUrls: ['./produto.component.css']
+  templateUrl: './produto-list.component.html',
+  styleUrls: ['./produto-list.component.css']
 })
-export class ProdutoComponent implements OnInit {
+export class ProdutoListComponent implements OnInit {
   pagina = 1;
   totalPagina = 10;
   displayedColumns = ['select', 'userId', 'userName', 'progress', 'color'];
@@ -25,6 +28,7 @@ export class ProdutoComponent implements OnInit {
   selection = new SelectionModel<string>(true, []);
   dataSource: ExampleDataSource | null;
   selectedRowIndex: number = -1;
+  produtos: Produto[];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -53,7 +57,17 @@ export class ProdutoComponent implements OnInit {
     }
   }
 
-  constructor() {}
+  constructor(private _produtoService: ProdutoService, private _tokenManager: TokenManagerService) {}
+
+  obterProdutos() {
+    const token = this._tokenManager.retrieve();
+    this._produtoService.getProdutos(token).subscribe(data => {
+      this.produtos = data.data;
+      console.log(data);
+      console.log(this.produtos.length);
+      console.log(token);
+    });
+  }
 
   highlight(row) {
     this.selectedRowIndex = row.id;
@@ -95,6 +109,9 @@ export class ProdutoComponent implements OnInit {
 
   ngOnInit() {
     // this.dataSource = new ExampleDataSource(this.exampleDatabase, this.sort);
+    this.paginator._intl.itemsPerPageLabel = 'Itens por pagina';
+    this.paginator._intl.nextPageLabel = 'Próxima Página';
+    this.paginator._intl.previousPageLabel = 'Voltar Página';
     this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
     Observable.fromEvent(this.filter.nativeElement, 'keyup')
         .debounceTime(150)

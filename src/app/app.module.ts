@@ -12,17 +12,16 @@ import { HttpModule } from '@angular/http';
 import { MatNativeDateModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LoginComponent } from './login/login.component';
-import { ProdutoComponent } from './produto/produto.component';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './/app-routing.module';
 import { ClienteComponent } from './cliente/cliente.component';
 import { MovimentoComponent } from './movimento/movimento.component';
+import { ProdutoModule } from './produto/produto.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ProdutoComponent,
     ClienteComponent,
     MovimentoComponent
   ],
@@ -36,6 +35,7 @@ import { MovimentoComponent } from './movimento/movimento.component';
     MatNativeDateModule,
     ReactiveFormsModule,
     CommonModule,
+    ProdutoModule,
     AppRoutingModule
   ],
   providers: [LoginService, UserService, TokenManagerService, AuthGuard],

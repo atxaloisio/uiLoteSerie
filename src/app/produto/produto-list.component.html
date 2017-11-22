@@ -8,7 +8,7 @@
               <i class="fa fa-cubes" aria-hidden="true"></i>
               <span>PRODUTOS</span>
             </button>
-            <button id="btnEditar" mat-raised-button color="primary" style="width: 100%">
+            <button id="btnEditar" mat-raised-button color="primary" style="width: 100%" (click)="obterProdutos()">
               <mat-icon>edit</mat-icon>
               <span>Editar</span>
             </button>
@@ -30,7 +30,6 @@
                 <label style="font-family: Roboto, 'Helvetica Neue', sans-serif; font-weight: bold">{{pagina}} de {{totalPagina}}</label>
               </div>
               <div fxFlex="5%" class="customHr"></div>
-              <div fxFlex="15%"></div>
               <div fxFlex="30%" style="background-color: rgb(3, 166, 247)">
                 <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
                   <button id="btnPrimeiro" mat-icon-button color="primary" class="size-25">
@@ -46,6 +45,17 @@
                     <mat-icon>last_page</mat-icon>
                   </button>
                 </div>
+              </div>
+              <div fxFlex="15%">
+                <div style="height: 40px"></div>
+                <a routerLink="/" mat-raised-button color="primary" style="width: 120px">
+                    <mat-icon>close</mat-icon>
+                    <span>Fechar</span>
+                </a>
+                <!-- <button id="btnFechar" mat-raised-button color="primary" style="width: 120px">
+                  <mat-icon>close</mat-icon>
+                  <span>Fechar</span>
+                </button> -->
               </div>
             </div>
           </div>
