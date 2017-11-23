@@ -15,7 +15,7 @@ export class ProdutoService {
   /** Metodo que retorna um observable com dados da listagem de produtos
    *  parametro: acessToken: string
   */
-  getProdutos(accessToken: string) {
+  getProdutos(accessToken: string, sort: string, order: string, page: number, pagesize: number) {
     const headers = new Headers({
       Accept: 'application/json',
       Authorization: 'Bearer ' + accessToken
